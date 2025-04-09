@@ -55,8 +55,8 @@ const CarCard: React.FC<CarCardProps> = ({ car, isGrid = true }) => {
             src={carImageUrl}
             alt={`${car.brand} ${car.model}`}
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-            onError={(e) => {
-              console.log(`Image error for ${car.brand} ${car.model}`);
+            onError={() => {
+              console.log(`Image error for ${car.brand} ${car.model}: ${carImageUrl}`);
               setImageError(true);
             }}
           />
