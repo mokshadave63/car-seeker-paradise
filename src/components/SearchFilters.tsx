@@ -136,14 +136,14 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ filters, onFilterChange, 
               <div>
                 <label className="text-sm font-medium leading-none mb-2 block">Sort By</label>
                 <Select 
-                  value={filters.sortBy || ''} 
-                  onValueChange={(value) => onFilterChange({ sortBy: value as 'price-asc' | 'price-desc' })}
+                  value={filters.sortBy || 'default'} 
+                  onValueChange={(value) => onFilterChange({ sortBy: value === 'default' ? '' : value as 'price-asc' | 'price-desc' })}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Sort By" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Default</SelectItem>
+                    <SelectItem value="default">Default</SelectItem>
                     <SelectItem value="price-asc">Price: Low to High</SelectItem>
                     <SelectItem value="price-desc">Price: High to Low</SelectItem>
                   </SelectContent>
@@ -255,14 +255,14 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ filters, onFilterChange, 
         
         <div className="mt-4 flex justify-end">
           <Select 
-            value={filters.sortBy || ''} 
-            onValueChange={(value) => onFilterChange({ sortBy: value as 'price-asc' | 'price-desc' })}
+            value={filters.sortBy || 'default'} 
+            onValueChange={(value) => onFilterChange({ sortBy: value === 'default' ? '' : value as 'price-asc' | 'price-desc' })}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Sort By" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Default</SelectItem>
+              <SelectItem value="default">Default</SelectItem>
               <SelectItem value="price-asc">Price: Low to High</SelectItem>
               <SelectItem value="price-desc">Price: High to Low</SelectItem>
             </SelectContent>
