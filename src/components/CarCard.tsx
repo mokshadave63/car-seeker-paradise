@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Fuel, Heart, Users, Gauge } from 'lucide-react';
@@ -6,6 +5,7 @@ import { Car } from '@/types/car';
 import { useWishlist } from '@/context/WishlistContext';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { getRealisticCarImage } from '@/utils/imageUtils';
 
 interface CarCardProps {
   car: Car;
@@ -27,7 +27,7 @@ const CarCard: React.FC<CarCardProps> = ({ car, isGrid = true }) => {
     }
   };
   
-  const carImageUrl = `/images/placeholder-car.svg`;
+  const carImageUrl = getRealisticCarImage(car.brand, car.model);
   
   return (
     <Link 
@@ -45,6 +45,9 @@ const CarCard: React.FC<CarCardProps> = ({ car, isGrid = true }) => {
           src={carImageUrl}
           alt={`${car.brand} ${car.model}`}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = "/images/placeholder-car.svg";
+          }}
         />
         <Button 
           variant="ghost" 
