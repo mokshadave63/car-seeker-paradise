@@ -27,7 +27,7 @@ const CarCard: React.FC<CarCardProps> = ({ car, isGrid = true }) => {
     }
   };
   
-  const defaultImage = "/placeholder.svg";
+  const carImageUrl = `/images/placeholder-car.svg`;
   
   return (
     <Link 
@@ -42,12 +42,9 @@ const CarCard: React.FC<CarCardProps> = ({ car, isGrid = true }) => {
         isGrid ? "h-48" : "h-48 md:w-64 md:h-auto"
       )}>
         <img 
-          src={car.images[0] || defaultImage}
+          src={carImageUrl}
           alt={`${car.brand} ${car.model}`}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          onError={(e) => {
-            e.currentTarget.src = defaultImage;
-          }}
         />
         <Button 
           variant="ghost" 
