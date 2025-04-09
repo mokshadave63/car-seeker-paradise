@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Filter, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -43,6 +42,19 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ filters, onFilterChange, 
     });
   };
   
+  const handleSortChange = (value: string) => {
+    if (value === 'default') {
+      const { sortBy, ...restFilters } = filters;
+      onFilterChange(restFilters);
+    } else {
+      onFilterChange({ sortBy: value as 'price-asc' | 'price-desc' });
+    }
+  };
+  
+  const getCurrentSortValue = () => {
+    return filters.sortBy || 'default';
+  };
+  
   return (
     <div className="bg-card rounded-lg border p-4 mb-6 transition-all duration-300 animate-fade-in">
       <div className="md:hidden mb-4">
@@ -61,7 +73,6 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ filters, onFilterChange, 
             </Button>
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-4 space-y-4">
-            {/* Mobile filters content */}
             <div className="space-y-4">
               <div>
                 <label className="text-sm font-medium leading-none mb-2 block">Brand</label>
@@ -136,8 +147,8 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ filters, onFilterChange, 
               <div>
                 <label className="text-sm font-medium leading-none mb-2 block">Sort By</label>
                 <Select 
-                  value={filters.sortBy || 'default'} 
-                  onValueChange={(value) => onFilterChange({ sortBy: value === 'default' ? '' : value as 'price-asc' | 'price-desc' })}
+                  value={getCurrentSortValue()} 
+                  onValueChange={handleSortChange}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Sort By" />
@@ -163,7 +174,6 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ filters, onFilterChange, 
         </Collapsible>
       </div>
       
-      {/* Desktop filters layout */}
       <div className="hidden md:block">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-medium text-lg flex items-center gap-2">
@@ -255,8 +265,8 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ filters, onFilterChange, 
         
         <div className="mt-4 flex justify-end">
           <Select 
-            value={filters.sortBy || 'default'} 
-            onValueChange={(value) => onFilterChange({ sortBy: value === 'default' ? '' : value as 'price-asc' | 'price-desc' })}
+            value={getCurrentSortValue()} 
+            onValueChange={handleSortChange}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Sort By" />
