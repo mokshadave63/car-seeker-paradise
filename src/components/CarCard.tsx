@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Fuel, Heart, Users, Gauge } from 'lucide-react';
@@ -15,6 +16,7 @@ interface CarCardProps {
 const CarCard: React.FC<CarCardProps> = ({ car, isGrid = true }) => {
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const inWishlist = isInWishlist(car.id);
+  const [imageError, setImageError] = React.useState(false);
   
   const handleWishlist = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -41,14 +43,24 @@ const CarCard: React.FC<CarCardProps> = ({ car, isGrid = true }) => {
         "relative overflow-hidden bg-muted", 
         isGrid ? "h-48" : "h-48 md:w-64 md:h-auto"
       )}>
-        <img 
-          src={carImageUrl}
-          alt={`${car.brand} ${car.model}`}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = "/images/placeholder-car.svg";
-          }}
-        />
+        {imageError ? (
+          <div className="flex items-center justify-center h-full bg-muted">
+            <div className="text-center p-4">
+              <span className="block text-4xl mb-2">🚗</span>
+              <p className="text-sm text-muted-foreground">{car.brand} {car.model}</p>
+            </div>
+          </div>
+        ) : (
+          <img 
+            src={carImageUrl}
+            alt={`${car.brand} ${car.model}`}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            onError={(e) => {
+              console.log(`Image error for ${car.brand} ${car.model}`);
+              setImageError(true);
+            }}
+          />
+        )}
         <Button 
           variant="ghost" 
           size="icon" 
