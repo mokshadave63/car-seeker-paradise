@@ -32,8 +32,6 @@ A modern, responsive web application built with **Next.js** that allows users to
 
 ## 🛠️ Setup Instructions
 
-### 1. Clone the Repository
-
 ```bash
 git clone https://github.com/yourusername/car-seeker-paradise
 cd /car-seeker-paradise
